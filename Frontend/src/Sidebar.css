@@ -1,0 +1,95 @@
+.sidebar{
+    background-color: #171717;
+    color: #b4b4b4;
+    height: 100vh;
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+button{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px;
+    padding: 6px;
+    border-radius: 5px;
+    background-color: transparent;
+    border:solid rgba(126, 137, 127, 0.877) 1px;
+    cursor: pointer;
+}
+button:hover{
+    background-color: #393636;
+}
+
+.logo{
+    width: 25px;
+    height: 25px;
+    background-color: #fff;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+button span{
+    font-size: 15px;
+    
+}
+
+/* History Sytling */
+.history{
+    height: 100%;
+    margin: 10px;
+    padding: 10px;
+
+}
+
+.history li{
+    list-style: none;
+    margin-bottom: 0.3rem;
+    cursor: pointer;
+    padding: 2px 5px;
+    font-size: 15px;
+    border: solid 5px transparent;
+    position: relative;
+    border-radius: 5px;
+    white-space: nowrap; /* Prevent text wrapping */
+    overflow: hidden; /* Hide overflow text */
+    text-overflow: ellipsis; /* Add ellipsis for overflow text */
+    max-width: 100%; /* Ensure it doesn't exceed the container width */
+
+}
+
+.history li:hover{
+    background-color: rgba(180, 180, 180, 0.05);
+}
+
+
+/* sign styling */
+.sign{
+    padding: 10px;
+    margin: 10px;
+    font-size: 14px;
+    text-align: center;
+    border-top: solid rgba(180, 180, 180, 0.05) 2px;
+}
+
+.fa-trash {
+    opacity: 0;
+    position: absolute;
+    right: 0;
+}
+
+.history li:hover .fa-trash {
+    opacity: 1;
+    color: #fff;
+}
+
+.fa-trash:hover {
+    color: #f87171 !important;
+}
+
+.highlighted {
+    background-color: rgba(180, 180, 180, 0.05);
+    border-radius: 10px;
+}
