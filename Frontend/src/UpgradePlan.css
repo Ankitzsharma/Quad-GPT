@@ -1,5 +1,4 @@
 .upgradeOverlay{
-  
   position: fixed;
   inset: 0;
   background: rgba(0,0,0,0.6);
@@ -7,7 +6,6 @@
   align-items: center;
   justify-content: center;
   z-index: 2000;
-  
 }
 .upgradeContainer{
   background: #1f1f1f;
@@ -15,7 +13,6 @@
   width: min(1000px, 95vw);
   border-radius: 12px;
   padding: 20px;
-  padding-bottom: 50px;
   box-shadow: 0 10px 40px rgba(0,0,0,0.3);
   
 }
@@ -53,7 +50,7 @@
 .planCard{
   background: #2a2a2a;
   border-radius: 12px;
-  padding: 26px;
+  padding: 16px;
 }
 .app.light .planCard{
   background: #f5f5f5;
