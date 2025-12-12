@@ -16,7 +16,7 @@ function App() {
   const [user, setUser] = useState(null);
   const [theme, setTheme] = useState("dark");
   const [selectedModels, setSelectedModels] = useState([]);
-  const apiBase = import.meta.env.VITE_API_BASE || "http://localhost:8080";
+  const apiBase = import.meta.env.VITE_API_BASE || "https://quadgpt-backend.onrender.com";
   const [showUpgrade, setShowUpgrade] = useState(false);
 
   useEffect(()=>{
