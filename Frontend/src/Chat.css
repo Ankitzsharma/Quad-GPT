@@ -87,3 +87,26 @@ pre {
     background-color: #f0f0f0;
     color: #222;
 }
+
+.chat-start {
+    text-align: center;
+    margin-top: 11rem;
+}
+
+/* Make brand row match sidebar */
+.chat-brand {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+.brandText strong{
+    text-align: left;
+}
+/* Use sidebar's logo size */
+.logo {
+    width: 38px;
+    height: 38px;
+    object-fit: contain;
+}

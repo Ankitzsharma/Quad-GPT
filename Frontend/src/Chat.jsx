@@ -4,6 +4,7 @@ import {MyContext} from "./MyContext";
 import ReactMarkdown from "react-markdown"
 import rehypeHighlight from "rehype-highlight";
 import "highlight.js/styles/github-dark.css";
+import logo from "./assets/GPT3.png";
 
 
 //react-markdown --> for proper Displaying Our Info
@@ -36,11 +37,25 @@ function Chat(){
         return ()=> clearInterval(interval);
 
     }, [prevChats, reply])
-
+    const logoSrc = logo;
     return(
         
         <>
-            {newChat && <h1>Start a New Chat!</h1>}
+            {newChat && (
+                <div className="chat-start">
+
+                    <div className="brandRow chat-brand">
+                        <img src={logoSrc} alt="Logo" className="logo" />
+
+                        <div className="brandText">
+                            <strong>QuadGPT</strong>
+                            <span>Intelligent AI Assistant</span>
+                        </div>
+                    </div>
+
+                    <h1>Start a New Chat..</h1>
+                </div>
+            )}
             
             <div className="chats">
                 {

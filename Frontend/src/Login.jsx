@@ -1,5 +1,7 @@
 import { useContext, useState } from "react";
 import { MyContext } from "./MyContext.jsx";
+import logo from "./assets/GPT3.png";
+
 
 function Login() {
   const { setUser, apiBase } = useContext(MyContext);
@@ -51,18 +53,37 @@ return (
         border: "1px solid rgba(255,255,255,0.08)",
       }}
     >
-      <p
+      <div
         style={{
-          textAlign: "center",
-          fontSize: 18,
-          color: "#bbbbbb",
-          marginTop: 0,
-          marginBottom: 10,
-          letterSpacing: "0.5px",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          marginBottom: 20,
+          marginTop: 0
         }}
       >
-        Welcome To <span style={{ color: "#4da6ff", fontWeight: 600 }}>QuadGPT</span>
-      </p>
+
+      {/* Logo */}
+      <img 
+        src={logo} 
+        alt="QuadGPT Logo" 
+        style={{
+          width: 48,
+          height: 48,
+          objectFit: "contain",
+          marginBottom: 10,
+          borderRadius:50,
+        }} 
+      />
+
+      {/* Brand Text */}
+      <div style={{ textAlign: "center", lineHeight: "1.2" }}>
+        {/* <strong style={{ fontSize: 20, color: "#fff" }}>QuadGPT</strong> */}
+        Welcome To <span style={{ color: "#4da6ff", fontWeight: 700 }}>QuadGPT</span>
+        <div style={{ fontSize: 14, color: "#bfbfbf" }}>Intelligent AI Assistant</div>
+      </div>
+    </div>
+    <hr></hr>
 
       <h2
         style={{
