@@ -86,7 +86,7 @@ function Sidebar(){
         }
     }
 
-    const logoSrc = theme === "light" ? "src/assets/GPT3.png" : "src/assets/GPT3.png";
+    const logoSrc = "src/assets/GPT3.png";
     const formatAgo = (d)=>{
         const diff = Math.floor((Date.now() - new Date(d).getTime())/60000);
         if(isNaN(diff)) return "";
@@ -110,7 +110,7 @@ function Sidebar(){
             </div>
             <button className="newChatBtn" onClick={createNewChat}>
                 <span>New Chat &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<i class="fa-solid fa-plus"></i></span>
-            </button>
+            </button>``
             <div className="searchBox">
                 <i className="fa-solid fa-magnifying-glass"></i>
                 <input placeholder="Search conversations" value={query} onChange={(e)=>setQuery(e.target.value)} />
