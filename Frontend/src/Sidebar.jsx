@@ -110,7 +110,7 @@ function Sidebar(){
             </div>
             <button className="newChatBtn" onClick={createNewChat}>
                 <span>New Chat &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<i class="fa-solid fa-plus"></i></span>
-            </button>``
+            </button>
             <div className="searchBox">
                 <i className="fa-solid fa-magnifying-glass"></i>
                 <input placeholder="Search conversations" value={query} onChange={(e)=>setQuery(e.target.value)} />
