@@ -1,18 +1,23 @@
 import "./Sidebar.css";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { MyContext } from "./MyContext.jsx";
 import {v1 as uuidv1} from "uuid";
 
 
 function Sidebar(){
 
-    const {allThreads, setAllThreads, currThreadId,setNewChat, setPrompt, setReply, setCurrThreadId, setPrevChats }=useContext(MyContext);
+    const {allThreads, setAllThreads, currThreadId,setNewChat, setPrompt, setReply, setCurrThreadId, setPrevChats, user, apiBase, theme, setTheme }=useContext(MyContext);
+    const [query, setQuery] = useState("");
 
     const getAllThreads = async()=>{
         try{
-            const response = await fetch("http://localhost:8080/api/thread");
+            const response = await fetch(`${apiBase}/api/thread`, {
+                headers: {
+                    ...(user?.token ? { Authorization: `Bearer ${user.token}` } : {})
+                }
+            });
             const res= await response.json();
-            const filteredData = res.map(thread => ({threadId: thread.threadId, title: thread.title}));
+            const filteredData = res.map(thread => ({threadId: thread.threadId, title: thread.title, updatedAt: thread.updatedAt}));
             // console.log(filteredData);
             setAllThreads(filteredData);
         }catch(err){
@@ -41,7 +46,11 @@ function Sidebar(){
         setCurrThreadId(newThreadId);
 
         try{
-            const response = await fetch(`http://localhost:8080/api/thread/${newThreadId}`);
+            const response = await fetch(`${apiBase}/api/thread/${newThreadId}`, {
+                headers: {
+                    ...(user?.token ? { Authorization: `Bearer ${user.token}` } : {})
+                }
+            });
             const res= await response.json();
             console.log(res);
             setPrevChats(res)
@@ -56,7 +65,12 @@ function Sidebar(){
 
     const deleteThread = async (threadId) =>{
         try{
-            const response = await fetch(`http://localhost:8080/api/thread/${threadId}`, {method: "DELETE"});
+            const response = await fetch(`${apiBase}/api/thread/${threadId}`, {
+                method: "DELETE",
+                headers: {
+                    ...(user?.token ? { Authorization: `Bearer ${user.token}` } : {})
+                }
+            });
             const res= await response.json();
             console.log(res);
 
@@ -72,39 +86,66 @@ function Sidebar(){
         }
     }
 
+    const logoSrc = theme === "light" ? "src/assets/GPT3.png" : "src/assets/GPT3.png";
+    const formatAgo = (d)=>{
+        const diff = Math.floor((Date.now() - new Date(d).getTime())/60000);
+        if(isNaN(diff)) return "";
+        if(diff < 1) return "just now";
+        if(diff === 1) return "1 minute ago";
+        if(diff < 60) return `${diff} minutes ago`;
+        const hours = Math.floor(diff/60);
+        if(hours === 1) return "1 hour ago";
+        return `${hours} hours ago`;
+    };
+    const filtered = allThreads.filter(t => t.title.toLowerCase().includes(query.toLowerCase()));
+
     return(
         <section className="sidebar">
-            {/* new chat button */}
-            <button onClick={createNewChat}>
-                <img src="src/assets/logo1.png" alt="Logo" className="logo"></img>
-                <span><i className="fa-solid fa-pen-to-square"></i></span>
+            <div className="brandRow">
+                <img src={logoSrc} alt="Logo" className="logo"></img>
+                <div className="brandText">
+                    <strong>QuadGPT</strong>
+                    <span>Intelligent AI Assistant</span>
+                </div>
+            </div>
+            <button className="newChatBtn" onClick={createNewChat}>
+                <span>New Chat &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<i class="fa-solid fa-plus"></i></span>
             </button>
-
-            {/* History */}
+            <div className="searchBox">
+                <i className="fa-solid fa-magnifying-glass"></i>
+                <input placeholder="Search conversations" value={query} onChange={(e)=>setQuery(e.target.value)} />
+            </div>
+            <div className="sectionTitle">Recent Chats</div>
             <ul className="history">
-                
                 {
-                    allThreads?.map((thread, idx) =>(
+                    filtered?.map((thread, idx) =>(
                         <li key={idx}
-                            onClick={(e)=>changeThread(thread.threadId)}
+                            onClick={()=>changeThread(thread.threadId)}
                             className={thread.threadId === currThreadId ? "highlighted" : " "}
                         >
-                            {thread.title}
+                            <div className="threadTitle">{thread.title}</div>
+                            <div className="threadTime">{formatAgo(thread.updatedAt)}</div>
                             <i className="fa-solid fa-trash"
                                 onClick={(e)=>{
                                     e.stopPropagation(); //to stop event bubbling
                                     deleteThread(thread.threadId);
                                 }}
                             ></i>
-
                         </li>
                     ))
                 }
-
             </ul>
-            {/* Sign */}
-            <div className="sign">
-                <p>&copy; Ankit Sharma &hearts;</p>
+            <div className="bottomControls">
+                <div className="modeRow">
+                    <span><i className="fa-regular fa-sun"></i> Dark Mode</span>
+                    <label className="switch">
+                        <input type="checkbox" checked={theme === "dark"} onChange={()=>setTheme(theme === "dark" ? "light" : "dark")}/>
+                        <span className="slider"></span>
+                    </label>
+                </div>
+                <div className="sign">
+                    <p>&copy; Ankit Sharma &hearts;</p>
+                </div>
             </div>
         </section>
     )

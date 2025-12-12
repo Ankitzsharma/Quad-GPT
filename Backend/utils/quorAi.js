@@ -7,6 +7,7 @@ const getQuorAiResponse = async (message, PERPLEXITY_API_KEY, PERPLEXITY_API_URL
     PERPLEXITY_API_URL,
     {
       model: MODEL,
+      return_citations: false,
       messages: [
         { role: "system", content: "You are a helpful assistant." },
         { role: "user", content: message },

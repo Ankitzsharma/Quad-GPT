@@ -5,7 +5,7 @@ import { useContext, useState, useEffect } from "react";
 import {ScaleLoader} from "react-spinners";
 
 function ChatWindow() {
-    const {prompt, setPrompt, reply, setReply, currThreadId, setPrevChats, setNewChat} = useContext(MyContext);
+    const {prompt, setPrompt, reply, setReply, currThreadId, setPrevChats, setNewChat, user, setUser, theme, setTheme, apiBase, setShowUpgrade} = useContext(MyContext);
     const [loading, setLoading] = useState(false);
     const [isOpen, setIsOpen] = useState(false);  //set default false value
 
@@ -17,7 +17,8 @@ function ChatWindow() {
         const options = {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                ...(user?.token ? { Authorization: `Bearer ${user.token}` } : {})
             },
             body: JSON.stringify({
                 message: prompt,
@@ -26,7 +27,7 @@ function ChatWindow() {
         };
 
         try {
-            const response = await fetch("http://localhost:8080/api/chat", options);
+            const response = await fetch(`${apiBase}/api/chat`, options);
             const res = await response.json();
             console.log(res);
             setReply(res.reply);
@@ -57,7 +58,18 @@ function ChatWindow() {
     const handleProfileClick = () => {
         setIsOpen(!isOpen);
     }
-
+    const toggleTheme = () => {
+        const t = theme === "dark" ? "light" : "dark";
+        setTheme(t);
+        localStorage.setItem("theme", t);
+        setIsOpen(false);
+    }
+    const logout = () => {
+        localStorage.removeItem("token");
+        setUser(null);
+        setIsOpen(false);
+    }
+    
     return (
         <div className="chatWindow">
             <div className="navbar">
@@ -69,9 +81,9 @@ function ChatWindow() {
             {
                 isOpen && 
                 <div className="dropDown">
-                    <div className="dropDownItem"><i class="fa-solid fa-gear"></i> Settings</div>
-                    <div className="dropDownItem"><i class="fa-solid fa-cloud-arrow-up"></i> Upgrade plan</div>
-                    <div className="dropDownItem"><i class="fa-solid fa-arrow-right-from-bracket"></i> Log out</div>
+                    <div className="dropDownItem" onClick={toggleTheme}><i className="fa-solid fa-gear"></i> Toggle theme</div>
+                    <div className="dropDownItem" onClick={()=>{ setShowUpgrade(true); setIsOpen(false); }}><i className="fa-solid fa-cloud-arrow-up"></i> Upgrade plan</div>
+                    <div className="dropDownItem" onClick={logout}><i className="fa-solid fa-arrow-right-from-bracket"></i> Log out</div>
                 </div>
             }
             <Chat></Chat>
@@ -81,7 +93,7 @@ function ChatWindow() {
             
             <div className="chatInput">
                 <div className="inputBox">
-                    <input placeholder="Ask anything"
+                    <input placeholder=" Ask anything...."
                         value={prompt}
                         onChange={(e) => setPrompt(e.target.value)}
                         onKeyDown={(e) => e.key === 'Enter'? getReply() : ''}

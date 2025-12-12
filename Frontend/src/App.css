@@ -15,3 +15,15 @@ body{
   background-color: #212121;
   display: flex;
 }
+.app.light{
+  background-color: #f5f5f5;
+}
+.app.light, .app.light *{
+  color: #222;
+}
+
+@media (max-width: 768px) {
+  .app{
+    flex-direction: column;
+  }
+}

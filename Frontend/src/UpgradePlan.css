@@ -1,0 +1,102 @@
+.upgradeOverlay{
+  
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  
+}
+.upgradeContainer{
+  background: #1f1f1f;
+  color: #fff;
+  width: min(1000px, 95vw);
+  border-radius: 12px;
+  padding: 20px;
+  padding-bottom: 50px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  
+}
+.app.light .upgradeContainer{
+  background: #ffffff;
+  color: #222;
+}
+.upgradeHeader{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.upgradeHeader h2{
+  margin: 0;
+}
+.tabs span{
+  margin: 0 8px;
+  padding: 6px 10px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.1);
+}
+.app.light .tabs span{
+  background: rgba(0,0,0,0.08);
+}
+.tabs .active{
+  background: #339cff;
+  color: #fff;
+}
+.plans{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 20px;
+}
+.planCard{
+  background: #2a2a2a;
+  border-radius: 12px;
+  padding: 26px;
+}
+.app.light .planCard{
+  background: #f5f5f5;
+}
+.priceRow{
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.strike{
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+.price{
+  font-size: 24px;
+  font-weight: 600;
+}
+.note{
+  font-size: 12px;
+  opacity: 0.7;
+}
+.currentBtn, .buyBtn{
+  margin: 10px 0;
+  width: 100%;
+  padding: 10px;
+  border-radius: 24px;
+  border: none;
+  background: #339cff;
+  color: #fff;
+  cursor: pointer;
+}
+.closeBtn{
+  border: none;
+  background: transparent;
+  color: inherit;
+  font-size: 20px;
+  cursor: pointer;
+}
+.planCard ul{
+  padding-left: 18px;
+}
+@media (max-width: 900px){
+  .plans{
+    grid-template-columns: 1fr;
+  }
+}

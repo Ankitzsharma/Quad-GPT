@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import axios from "axios";
 import mongoose from "mongoose";
 import chatRoutes from "./routes/chat.js";
+import authRoutes from "./routes/auth.js";
 dotenv.config();
 
 const app = express();
@@ -15,6 +16,7 @@ app.use(express.json());
 
 
 app.use("/api", chatRoutes);  // Use chat routes for any endpoint starting with /api
+app.use("/api/auth", authRoutes);
 
 
 

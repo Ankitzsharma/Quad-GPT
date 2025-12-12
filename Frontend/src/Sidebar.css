@@ -1,4 +1,4 @@
-.sidebar{
+.sidebar {
     background-color: #171717;
     color: #b4b4b4;
     height: 100vh;
@@ -8,7 +8,19 @@
     justify-content: space-between;
 }
 
-button{
+.app.light .sidebar {
+    background-color: #fafafa;
+    color: #222;
+}
+
+img{
+    width: 100px;
+    height: 100px;
+    background-color: #fff;
+    
+}
+
+button {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -16,58 +28,157 @@ button{
     padding: 6px;
     border-radius: 5px;
     background-color: transparent;
-    border:solid rgba(126, 137, 127, 0.877) 1px;
+    border: solid rgba(126, 137, 127, 0.877) 1px;
     cursor: pointer;
 }
-button:hover{
+
+.app.light button {
+    border: solid rgba(0, 0, 0, 0.2) 1px;
+}
+
+button:hover {
     background-color: #393636;
 }
 
-.logo{
+.logo {
     width: 25px;
     height: 25px;
     background-color: #fff;
     border-radius: 50%;
     object-fit: cover;
 }
+.brandRow{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+}
+.brandText{
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+}
+.newChatBtn{
+    margin: 10px;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    background: linear-gradient(90deg, #7c3aed, #22d3ee);
+    color: #fff;
+    cursor: pointer;
+}
+.searchBox{
+    margin: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: rgba(255,255,255,0.05);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.app.light .searchBox{
+    background-color: rgba(0,0,0,0.05);
+}
+.searchBox input{
+    flex: 1;
+    border: none;
+    background: transparent;
+    color: inherit;
+    outline: none;
+}
+.sectionTitle{
+    margin: 10px;
+}
 
-button span{
+button span {
     font-size: 15px;
-    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+h3 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px;
+    padding: 6px;
+    border-radius: 5px;
+    background-color: transparent;
+    border: solid rgba(126, 137, 127, 0.877) 1px;
+    /* cursor: pointer; */
 }
 
 /* History Sytling */
-.history{
+
+.history {
     height: 100%;
     margin: 10px;
     padding: 10px;
+    overflow-y: auto;
 
 }
+.history::-webkit-scrollbar {
+    display: none;           /* Chrome, Safari, Edge */
+}
 
-.history li{
+@media (max-width: 1024px) {
+    .history {
+        max-height: 50vh;
+        overflow-y: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        flex-direction: column;
+    }
+
+    .history {
+        max-height: 40vh;
+        overflow-y: auto;
+    }
+}
+
+.history li {
     list-style: none;
     margin-bottom: 0.3rem;
     cursor: pointer;
-    padding: 2px 5px;
+     padding: 6px 35px 6px 8px; /* space for trash icon */
     font-size: 15px;
     border: solid 5px transparent;
     position: relative;
     border-radius: 5px;
-    white-space: nowrap; /* Prevent text wrapping */
-    overflow: hidden; /* Hide overflow text */
-    text-overflow: ellipsis; /* Add ellipsis for overflow text */
-    max-width: 100%; /* Ensure it doesn't exceed the container width */
+    white-space: nowrap;
+    /* Prevent text wrapping */
+    overflow: hidden;
+    /* Hide overflow text */
+    text-overflow: ellipsis;
+    /* Add ellipsis for overflow text */
+    max-width: 100%;
+    /* Ensure it doesn't exceed the container width */
+    background-color: rgba(255,255,255,0.03);
 
 }
+.threadTitle{
+    font-size: 15px;
+}
+.threadTime{
+    font-size: 12px;
+    opacity: 0.7;
+}
 
-.history li:hover{
+.history li:hover {
     background-color: rgba(180, 180, 180, 0.05);
 }
 
 
 /* sign styling */
-.sign{
-    padding: 10px;
+.sign {
+    padding-top: 10px;
     margin: 10px;
     font-size: 14px;
     text-align: center;
@@ -75,14 +186,18 @@ button span{
 }
 
 .fa-trash {
-    opacity: 0;
     position: absolute;
-    right: 0;
+    top: 81%;                /* center vertically */
+    right: 10px;             /* add right spacing */
+    transform: translateY(-50%);
+    opacity: 0;
+    transition: opacity 0.15s ease;
+    font-size: 16px;
 }
 
 .history li:hover .fa-trash {
     opacity: 1;
-    color: #fff;
+    color: #22d3ee;
 }
 
 .fa-trash:hover {
@@ -92,4 +207,51 @@ button span{
 .highlighted {
     background-color: rgba(180, 180, 180, 0.05);
     border-radius: 10px;
+}
+.bottomControls{
+    padding: 10px;
+}
+.modeRow{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 22px;
+}
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #888;
+  transition: .2s;
+  border-radius: 22px;
+}
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .2s;
+  border-radius: 50%;
+}
+input:checked + .slider {
+  background-color: #7c3aed;
+}
+input:checked + .slider:before {
+  transform: translateX(18px);
 }
