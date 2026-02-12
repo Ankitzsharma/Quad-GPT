@@ -87,3 +87,20 @@ pre {
     background-color: #f0f0f0;
     color: #222;
 }
+
+
+.chat-start {
+    transform: translateY(195px);
+}
+
+.brandText strong{
+    font-size: 1.2rem;
+    /* text-align: start; */
+}
+
+.brandText  strong img{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    object-fit: cover;
+}

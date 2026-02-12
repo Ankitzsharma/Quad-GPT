@@ -44,16 +44,14 @@ function Chat(){
             {newChat && (
                 <div className="chat-start">
 
-                    <div className="brandRow chat-brand">
+                    {/* <div className="brandRow chat-brand"> */}
                         <img src={logoSrc} alt="Logo" className="logo" />
-
                         <div className="brandText">
                             <strong>QuadGPT</strong>
                             <span>Intelligent AI Assistant</span>
                         </div>
-                    </div>
-
-                    <h1>Start a New Chat..</h1>
+                    {/* </div> */}
+                     <h1>Start a New Chat</h1>
                 </div>
             )}
             
@@ -66,7 +64,7 @@ function Chat(){
                                 chat.role ==="user" ? 
                                 <p className="userMessage">{chat.content}</p> : 
                                 <ReactMarkdown rehypePlugins={[rehypeHighlight]}>{chat.content}</ReactMarkdown>
-                            }
+                            } 
 
                         </div>
                     )

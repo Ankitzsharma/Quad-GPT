@@ -2,6 +2,7 @@ import "./Sidebar.css";
 import { useContext, useEffect, useState } from "react";
 import { MyContext } from "./MyContext.jsx";
 import {v1 as uuidv1} from "uuid";
+import logoSrc from "./assets/GPT3.png";
 
 
 function Sidebar(){
@@ -86,7 +87,7 @@ function Sidebar(){
         }
     }
 
-    const logoSrc = "src/assets/GPT3.png";
+    // const logoSrc = "src/assets/GPT3.png";
     const formatAgo = (d)=>{
         const diff = Math.floor((Date.now() - new Date(d).getTime())/60000);
         if(isNaN(diff)) return "";
@@ -109,7 +110,9 @@ function Sidebar(){
                 </div>
             </div>
             <button className="newChatBtn" onClick={createNewChat}>
-                <span>New Chat &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<i class="fa-solid fa-plus"></i></span>
+                {/* <span>New Chat &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<i class="fa-solid fa-plus"></i></span> */}
+                <span><b>New Chat</b></span>
+                <i className="fa-solid fa-plus"></i>
             </button>
             <div className="searchBox">
                 <i className="fa-solid fa-magnifying-glass"></i>
