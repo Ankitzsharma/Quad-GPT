@@ -10,6 +10,8 @@ QuadGPT is an Generative Artificial Intelligence
 Chatbot/Chat-based application inspired by modern AI
 Conversational systems like ChatGPT, Perplexity.
 
+# Live Demo : https://quadgpt-frontend-1.onrender.com/
+
 A full‑stack GenAI chat application with secure authentication, 
 persistent threaded conversations, theme toggle, and a clean, 
 responsive UI. Built with React (Vite) and Express/MongoDB, 
