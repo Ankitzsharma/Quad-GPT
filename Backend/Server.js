@@ -19,7 +19,6 @@ app.use("/api", chatRoutes);  // Use chat routes for any endpoint starting with 
 app.use("/api/auth", authRoutes);
 
 
-
 const PERPLEXITY_API_KEY = process.env.PERPLEXITY_API_KEY;
 const PERPLEXITY_API_URL = "https://api.perplexity.ai/chat/completions";
 const MODEL = process.env.PERPLEXITY_MODEL || "sonar-pro";
@@ -75,14 +74,14 @@ function formatReplyForTerminal(reply) {
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
   connectDB();  // call our DB connection function when server starts
-}); 
+});
 
 // Connect to MongoDB
-const connectDB = async()=>{
-  try{
+const connectDB = async () => {
+  try {
     await mongoose.connect(process.env.MONGODB_URI);
     console.log("Connected to MongoDB");
-  }catch(err){
+  } catch (err) {
     console.log("Falied To Connect to MongoDB", err);
   }
 }

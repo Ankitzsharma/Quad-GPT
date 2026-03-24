@@ -28,6 +28,7 @@ function Sidebar(){
 
     useEffect(()=>{
         getAllThreads();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currThreadId])
 
 
@@ -88,15 +89,24 @@ function Sidebar(){
     }
 
     // const logoSrc = "src/assets/GPT3.png";
-    const formatAgo = (d)=>{
-        const diff = Math.floor((Date.now() - new Date(d).getTime())/60000);
-        if(isNaN(diff)) return "";
-        if(diff < 1) return "just now";
-        if(diff === 1) return "1 minute ago";
-        if(diff < 60) return `${diff} minutes ago`;
-        const hours = Math.floor(diff/60);
-        if(hours === 1) return "1 hour ago";
-        return `${hours} hours ago`;
+    const formatAgo = (dateString) => {
+        if (!dateString) return "";
+        const date = new Date(dateString);
+        if (isNaN(date.getTime())) return "";
+
+        const now = new Date();
+        const diffInSeconds = Math.floor((now - date) / 1000);
+
+        if (diffInSeconds < 60) return "just now";
+        
+        const diffInMinutes = Math.floor(diffInSeconds / 60);
+        if (diffInMinutes < 60) return `${diffInMinutes} minute${diffInMinutes > 1 ? 's' : ''} ago`;
+
+        const diffInHours = Math.floor(diffInMinutes / 60);
+        if (diffInHours < 24) return `${diffInHours} hour${diffInHours > 1 ? 's' : ''} ago`;
+
+        const diffInDays = Math.floor(diffInHours / 24);
+        return `${diffInDays} day${diffInDays > 1 ? 's' : ''} ago`;
     };
     const filtered = allThreads.filter(t => t.title.toLowerCase().includes(query.toLowerCase()));
 

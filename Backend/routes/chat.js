@@ -76,7 +76,7 @@ router.post('/chat', authMiddleware, async (req, res) => {
     const { threadId, message } = req.body;
 
     if (!threadId || !message) {
-        res.status(400).json({ error: "threadId and message are required" });
+        return res.status(400).json({ error: "threadId and message are required" });
     }
     try {
         let thread = await Thread.findOne({ threadId, userId: req.user.id });
@@ -110,7 +110,7 @@ router.post('/chat', authMiddleware, async (req, res) => {
         return res.json({ reply: assistantReply });
 
     } catch (err) {
-        console.error(err);
+        console.error("Chat API error:", err.response?.data || err.message);
         return res.status(500).json({ error: "Something Went Wrong, Try Again." })
     }
 });

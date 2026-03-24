@@ -1,19 +1,23 @@
 import "./ChatWindow.css";
 import Chat from "./Chat.jsx";
 import { MyContext } from "./MyContext.jsx";
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState } from "react";
 import {ScaleLoader} from "react-spinners";
 
 function ChatWindow() {
-    const {prompt, setPrompt, reply, setReply, currThreadId, setPrevChats, setNewChat, user, setUser, theme, setTheme, apiBase, setShowUpgrade} = useContext(MyContext);
+    const {prompt, setPrompt, setReply, currThreadId, setPrevChats, setNewChat, user, setUser, theme, setTheme, apiBase, setShowUpgrade} = useContext(MyContext);
     const [loading, setLoading] = useState(false);
     const [isOpen, setIsOpen] = useState(false);  //set default false value
 
     const getReply = async () => {
+        if (loading || !prompt.trim()) return;
+        
         setLoading(true);
         setNewChat(false);
 
-        console.log("message ", prompt, " threadId ", currThreadId);
+        const currentPrompt = prompt;
+        setPrompt("");
+
         const options = {
             method: "POST",
             headers: {
@@ -21,38 +25,48 @@ function ChatWindow() {
                 ...(user?.token ? { Authorization: `Bearer ${user.token}` } : {})
             },
             body: JSON.stringify({
-                message: prompt,
+                message: currentPrompt,
                 threadId: currThreadId
             })
         };
 
         try {
             const response = await fetch(`${apiBase}/api/chat`, options);
+            if (!response.ok) {
+                const errorRes = await response.json();
+                throw new Error(errorRes.error || "Failed to get response");
+            }
             const res = await response.json();
-            console.log(res);
+            
             setReply(res.reply);
-        } catch(err) {
-            console.log(err);
-        }
-        setLoading(false);
-    }
-
-    //Append new chat to prevChats
-    useEffect(() => {
-        if(prompt && reply) {
             setPrevChats(prevChats => (
                 [...prevChats, {
                     role: "user",
-                    content: prompt
+                    content: currentPrompt
                 },{
                     role: "assistant",
-                    content: reply
+                    content: res.reply
                 }]
             ));
+        } catch(err) {
+            console.error("Chat Error:", err);
+            // Optionally add an error message to the chat
+            setPrevChats(prevChats => (
+                [...prevChats, {
+                    role: "user",
+                    content: currentPrompt
+                },{
+                    role: "assistant",
+                    content: "You’ve exceeded your API credit limit.\nThis means your available credits have been used up.\nPlease upgrade your plan or add more credits to continue."
+                }]
+            ));
+        } finally {
+            setLoading(false);
         }
+    }
 
-        setPrompt("");
-    }, [reply]);
+    // Removed the useEffect that added messages based on 'reply' changes
+    // to avoid potential race conditions or double-addition.
 
 
     const handleProfileClick = () => {
