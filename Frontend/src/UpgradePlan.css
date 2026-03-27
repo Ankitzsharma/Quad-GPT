@@ -82,18 +82,21 @@
   color: #fff;
   cursor: pointer;
 }
-.closeBtn{
+
+.closeBtn {
   border: none;
   background: transparent;
   color: inherit;
   font-size: 20px;
   cursor: pointer;
 }
-.planCard ul{
+
+.planCard ul {
   padding-left: 18px;
 }
-@media (max-width: 900px){
-  .plans{
+
+@media (max-width: 900px) {
+  .plans {
     grid-template-columns: 1fr;
   }
 }

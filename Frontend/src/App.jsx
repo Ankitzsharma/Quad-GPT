@@ -6,6 +6,8 @@ import { useState, useEffect } from 'react';
 import {v1 as uuidv1} from "uuid";
 import Login from './Login.jsx';
 import UpgradePlan from './UpgradePlan.jsx';
+import LandingPage from './Landing/LandingPage.jsx';
+
 function App() {
   const [prompt, setPrompt]= useState("");
   const [reply, setReply] = useState(null);
@@ -18,6 +20,7 @@ function App() {
   const [selectedModels, setSelectedModels] = useState([]);
   const apiBase = import.meta.env.VITE_API_BASE || "https://quadgpt-backend.onrender.com";
   const [showUpgrade, setShowUpgrade] = useState(false);
+  const [showLanding, setShowLanding] = useState(true);
 
   useEffect(()=>{
     const savedTheme = localStorage.getItem("theme");
@@ -37,20 +40,23 @@ function App() {
     theme, setTheme,
     selectedModels, setSelectedModels,
     apiBase,
-    showUpgrade, setShowUpgrade
+    showUpgrade, setShowUpgrade,
+    showLanding, setShowLanding
   };
   
   return (
     <div className={`app ${theme}`}>
       <MyContext.Provider value={providerValues}>
-        {user ? (
+        {showLanding ? (
+          <LandingPage setShowLanding={setShowLanding} />
+        ) : user ? (
           <>
-            <Sidebar></Sidebar>
-            <ChatWindow></ChatWindow>
-            {showUpgrade && <UpgradePlan></UpgradePlan>}
+            <Sidebar />
+            <ChatWindow />
+            {showUpgrade && <UpgradePlan />}
           </>
         ) : (
-          <Login></Login>
+          <Login />
         )}
       </MyContext.Provider>
     </div>

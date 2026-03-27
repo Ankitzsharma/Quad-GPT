@@ -82,6 +82,8 @@ function ChatWindow() {
         localStorage.removeItem("token");
         setUser(null);
         setIsOpen(false);
+
+        window.location.href = "/";
     }
     
     return (
