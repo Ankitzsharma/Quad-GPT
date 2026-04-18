@@ -7,7 +7,7 @@
 [![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-green)](https://www.mongodb.com/)
 
 QuadGPT is an Generative Artificial Intelligence
-Chatbot/Chat-based application inspired by modern AI
+Voice/Chat-based application inspired by modern AI
 Conversational systems like ChatGPT, Perplexity.
 
 # Live Demo :
